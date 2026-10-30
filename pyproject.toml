@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "macro-rates-research"
+version = "0.1.0"
+description = "Policy calendars, curve risk and auditable rates research"
+requires-python = ">=3.12,<3.13"
+license = {file = "LICENSE"}
+dependencies = ["numpy>=2.1,<3", "pandas>=2.2,<3", "matplotlib>=3.9,<4"]
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+[tool.setuptools.packages.find]
+include = ["macro_rates*"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.setuptools.package-data]
+macro_rates = ["data/*.json"]

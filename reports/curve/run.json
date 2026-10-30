@@ -1,0 +1,18 @@
+{
+  "generated_utc": "2026-10-30T20:35:33.981065+00:00",
+  "input_sha256": "88cab90e84ad765ab79d9854b33e5813051210f2ac2285eaa6e720149fdd256d",
+  "first_model_date": "2010-01-04",
+  "last_model_date": "2025-12-30",
+  "runtime_seconds": 3.3241540000017267,
+  "machine": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.6",
+  "window": 252,
+  "data_kind": "public-real-current-vintage",
+  "source_sha256": {
+    "policy.py": "04e1ad4f3cf6928802294e20796c5a072f5110070a60bd56d0d64bc27b4fd0e4",
+    "curves.py": "f6622867aa7feac6b1f593c68b0983923eb7c38f00121e29ba323ffc667cfda9",
+    "report.py": "5efea08d75e72c419ddc2655e6873e673503db27d2a9c0e87b4f6fec1221fcb2",
+    "__main__.py": "0f7befcc38cba550c1d316bda5805abcf102563d07ab73cf6fd21ba0b02bcb75"
+  },
+  "protocol_sha256": "d63fb25899aac0bbbb9853ed1bcb53344a2cb11ac12a8a86be9511109d4576a0"
+}

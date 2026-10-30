@@ -1,0 +1,7 @@
+{
+  "matched_finite_values": 22510,
+  "missing_published_values": 5,
+  "maximum_error_percentage_points": 0.00030074930569168323,
+  "pass_rounded_published_yields": false,
+  "interpretation": "11/22510 finite comparisons exceed nominal four-decimal rounding; maximum 0.030075 bp. Published parameter/yield inconsistency retained; no source repair or claim of exact equality."
+}
