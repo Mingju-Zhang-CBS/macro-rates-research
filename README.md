@@ -6,9 +6,9 @@ What risk remains after hedging a Treasury curve position, and how does policy t
 
 [Curve results](reports/curve/REPORT.md) · [Policy demonstration](reports/demo/REPORT.md) · [Run the study](#run-the-study)
 
-![Daily model P&L and risk for hypothetical Treasury curve positions](reports/curve/curve_risk.png)
+![Rolling P&L volatility and variance explained by principal components for the Treasury curve study](reports/curve/curve_risk.png)
 
-*Public GSW curves, 2010–2025. Daily repricing uses USD 1 million gross model market value reset each observation. Values are model P&L in dollars. Hedge exposures and residual risk are detailed in the [attribution report](reports/curve/REPORT.md).*
+*Public GSW curves, 2010–2025. Daily repricing uses USD 1 million gross model market value reset each observation. The top panel shows 63-observation P&L volatility in dollars. The bottom panel shows the variance explained by three prior-window principal components. Hedge exposures and residual risk are detailed in the [attribution report](reports/curve/REPORT.md).*
 
 ## From policy views to funded positions
 
