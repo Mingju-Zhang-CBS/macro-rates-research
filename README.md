@@ -1,50 +1,43 @@
-<img src="assets/studio.svg" alt="Macro Rates Research: policy paths, curve risk and implementation economics" width="100%">
-
 # Macro Rates Research
 
-**What is priced into the policy path—and what risks remain when a trade is hedged?**
+What risk remains after hedging a Treasury curve position, and how does policy timing affect a monthly Fed Funds contract? The research uses public Treasury research curves for risk attribution and synthetic contract scenarios for policy, execution and funding mechanics.
 
-This research connects policy calendars, monthly-rate contracts and Treasury curve risk. It grew from questions raised in Global Macro Investing, then reconstructs the methods in an independent public implementation. The objective is to make a rates view precise enough to test, price and challenge.
+**Finding.** Over 4,000 daily model observations per portfolio in 2010–2025, the DV01-matched 2s10s position's worst daily P&L was **−$3,074**. A three-leg position neutralizing two prior PCA exposures still lost **$2,095** on its worst day. These are hypothetical zero-coupon positions on current-vintage Federal Reserve GSW staff curves.
 
-[Methods](docs/METHODS.md) · [Curve results](reports/curve/REPORT.md) · [Policy demonstration](reports/demo/REPORT.md) · [Verification](docs/VERIFICATION.md) · [Data rights](docs/DATA.md) · [Portfolio](https://github.com/Mingju-Zhang-CBS/Quant)
+[Curve results](reports/curve/REPORT.md) · [Policy demonstration](reports/demo/REPORT.md) · [Run the study](#run-the-study)
 
-## A result worth examining
+![Rolling P&L volatility and variance explained by principal components for the Treasury curve study](reports/curve/curve_risk.png)
 
-The real-data curve study contains **4,000 daily model observations per portfolio, 2010–2025**. With USD 1m gross model market value reset each observation, the DV01-matched 2s10s position had a worst daily model P&L of **−$3,074**. The three-leg position neutralizing two prior PCA exposures still had a worst day of **−$2,095**. These are hypothetical zero-coupon risk calculations on current-vintage Federal Reserve curves, **not executable bond returns or account NAVs**.
+*Public GSW curves, 2010–2025. Daily repricing uses USD 1 million gross model market value reset each observation. The top panel shows 63-observation P&L volatility in dollars. The bottom panel shows the variance explained by three prior-window principal components. Hedge exposures and residual risk are detailed in the [attribution report](reports/curve/REPORT.md).*
 
-![Curve risk from actual public GSW data](reports/curve/curve_risk.png)
+## From policy views to funded positions
 
-The useful finding is that hedge labels do not remove losses. Parallel-duration neutrality leaves nonparallel moves and convexity; PCA neutrality depends on the estimation window and chosen universe. [Read the attribution and limitations](reports/curve/REPORT.md).
+- **Curve risk.** Svensson zero curves drive aging and full repricing. Parallel-duration matching leaves nonparallel changes and convexity. PCA uses only prior changes and depends on the estimation window and curve universe.
+- **Policy calendars.** Monthly contracts use a calendar-day average of EFFR. Meeting effective dates change the weights. The synthetic demo makes rounding, two-leg costs and collateral proxies explicit. A market-implied average includes premia and does not uniquely identify physical policy probabilities.
+- **Evidence boundaries.** The public curve history is current vintage. Policy scenarios are synthetic. The separately documented licensed contract workflow depends on historical timestamp, unit and data-rights evidence.
 
-## Two connected studies
+[Methods](docs/METHODS.md) · [Verification](docs/VERIFICATION.md) · [Sources and data rights](docs/DATA.md)
 
-| Study | Research implementation | Skills demonstrated |
-|---|---|---|
-| Policy path and calendar trades | Calendar-day monthly EFFR averaging; effective-date changes; declared scenarios; grid rounding; two-leg cash and reserve accounting | Contract conventions, policy exposure, cost breakeven and funding risk |
-| Treasury curve risk | Svensson zero curves; aging and full repricing; DV01 matching; covariance PCA fitted only on prior changes; Taylor and factor attribution | Fixed-income mathematics, numerical checks, risk decomposition and temporal discipline |
+## Run the study
 
-**Evidence status.** Curve results use real public data. The offline policy demonstration is synthetic. A separate licensed historical-contract workflow is available, but vendor unit evidence, original publication timing and redistribution rights remain open; its actual records and derived findings stay private. These evidence levels are intentionally distinct.
-
-## Run the research
-
-Python 3.12; CPU only; no broker connection or API key is needed for the demonstration.
+Use Python 3.12 from the repository root. Activate the virtual environment with `.venv\Scripts\Activate.ps1` in PowerShell or `source .venv/bin/activate` on macOS/Linux.
 
 ```bash
-python -m pip install '.[test]'
-python -m pytest
+python -m venv .venv
+# Activate the environment before installing.
+python -m pip install -r requirements.lock.txt
+python -m pip install --no-deps -e .
+python -m pip check
+python -m pytest -q tests
 python -m macro_rates --demo --output output/demo
 ```
 
-For the public-data curve report, download the [official GSW CSV](https://www.federalreserve.gov/data/yield-curve-tables/feds200628.csv), then:
+The synthetic policy demo runs offline after installation. To run the curve attribution, download the [official GSW CSV](https://www.federalreserve.gov/data/yield-curve-tables/feds200628.csv) to the repository root, then use:
 
 ```bash
-python -m macro_rates --gsw /path/to/feds200628.csv --output output/curve
+python -m macro_rates --gsw feds200628.csv --output output/curve
 ```
 
-The saved report records the exact source fingerprint. A later download may differ because the source revises history. No trading claim follows from simply shifting revised data by a day.
+The saved report records the input fingerprint. A later download may reflect source revisions. Treasury futures delivery, basis and live execution are separate questions.
 
-## What the model does—and where it ends
-
-Fed Funds futures settle against a monthly average, so meeting timing changes exposure. Market-implied averages contain premia and do not uniquely identify physical meeting probabilities. Treasury model curves are not Treasury futures: delivery options, CTD changes, conversion factors and basis require their own evidence. Missing historical margin is represented by a named proxy, never presented as observed SPAN.
-
-Project direction and research choices: Mingju Zhang. Implementation, testing and documentation were developed with AI assistance. Public code was reconstructed for this study; course submissions, group originals, Bloomberg captures and employer materials are excluded. MIT covers original code; source data retain their own terms. [Attribution and sources](docs/DATA.md).
+Research direction by Mingju Zhang, motivated by Global Macro Investing. The independent public implementation, tests and documentation were developed with AI assistance. [Sources and contribution](docs/DATA.md) · [MIT license](LICENSE) · [Research directory](https://github.com/Mingju-Zhang-CBS/Quant)
